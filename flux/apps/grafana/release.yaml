@@ -17,6 +17,9 @@ spec:
     remediation:
       retries: 3
   values:
+    service:
+      type: LoadBalancer
+    adminPassword: graviton234!
     datasources:
       datasources.yaml:
         apiVersion: 1
