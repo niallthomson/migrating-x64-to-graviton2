@@ -1,0 +1,23 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: prometheus
+spec:
+  releaseName: prometheus
+  chart:
+    spec:
+      chart: prometheus
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus
+        namespace: flux-system
+      version: "14.4.0"
+  interval: 1m0s
+  install:
+    remediation:
+      retries: 3
+  values:
+    server:
+      replicaCount: 1
+    alertmanager:
+      enabled: false
