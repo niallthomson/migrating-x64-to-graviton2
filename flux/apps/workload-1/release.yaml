@@ -17,3 +17,10 @@ spec:
       retries: 3
   values:
     replicaCount: 3
+    tolerations:
+    - key: "graviton2"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
+    nodeSelector:
+      kubernetes.io/arch: arm64
