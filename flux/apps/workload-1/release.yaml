@@ -24,3 +24,24 @@ spec:
       effect: "NoSchedule"
     nodeSelector:
       kubernetes.io/arch: arm64
+    affinity:
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                - workload-1-podinfo
+            topologyKey: topology.kubernetes.io/zone
+          weight: 100
+        - podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                - workload-1-podinfo
+            topologyKey: kubernetes.io/hostname 
+          weight: 99

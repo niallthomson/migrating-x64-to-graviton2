@@ -19,5 +19,9 @@ spec:
   values:
     server:
       replicaCount: 1
+      service:
+        type: LoadBalancer
     alertmanager:
+      enabled: false
+    pushgateway:
       enabled: false
