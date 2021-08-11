@@ -1,7 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: workload-1
 resources:
-  - sources
-  - prometheus
-  - grafana
-  - workload-1
+  - namespace.yaml
+  - release.yaml
