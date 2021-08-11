@@ -4,3 +4,4 @@ namespace: flux-system
 resources:
   - prometheus.yaml
   - grafana.yaml
+  - podinfo.yaml
