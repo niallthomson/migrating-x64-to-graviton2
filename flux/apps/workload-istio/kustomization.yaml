@@ -3,5 +3,6 @@ kind: Kustomization
 namespace: workload-istio
 resources:
   - namespace.yaml
-  #- release.yaml
-  #- gateway.yaml
+  - release-intel.yaml
+  - release-graviton2.yaml
+  - gateway.yaml
