@@ -5,3 +5,4 @@ resources:
   - prometheus.yaml
   - grafana.yaml
   - podinfo.yaml
+  - istio.yaml
