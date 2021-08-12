@@ -20,6 +20,7 @@ spec:
     service:
       type: LoadBalancer
     adminPassword: graviton234!
+
     datasources:
       datasources.yaml:
         apiVersion: 1
@@ -29,3 +30,23 @@ spec:
           url: http://prometheus-server.prometheus.svc.cluster.local
           access: proxy
           isDefault: true
+
+    dashboardProviders:
+      dashboardproviders.yaml:
+        apiVersion: 1
+        providers:
+          - name: default
+            orgId: 1
+            folder: ""
+            type: file
+            disableDeletion: false
+            editable: false
+            options:
+              path: /var/lib/grafana/dashboards/default
+
+    dashboards:
+      default:
+        nodeExporter:
+          gnetId: 1860
+          revision: 23
+          datasource: Prometheus
