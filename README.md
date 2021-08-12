@@ -20,13 +20,25 @@ Add Graviton2 node group:
 eksctl create nodegroup -f graviton2-nodegroup.yml
 ```
 
+Add the following to `workload-1` configuration to migrate (`flux/apps/workload-1/release.yaml`):
+
+```
+spec:
+  [...]
+  values:
+    [...]
+    tolerations:
+    - key: "graviton2"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
+    nodeSelector:
+      kubernetes.io/arch: arm64
+```
+
+Commit and Push.
+
 ## Cleanup
-
-Delete the Graviton2 node group:
-
-```
-eksctl delete nodegroup -f graviton2-nodegroup.yml --wait
-```
 
 Delete the cluster:
 
