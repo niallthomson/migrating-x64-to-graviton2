@@ -17,6 +17,8 @@ spec:
       retries: 3
   values:
     replicaCount: 3
+    serviceMonitor:
+      enabled: true
     affinity:
       podAntiAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
