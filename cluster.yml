@@ -1,0 +1,66 @@
+---
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: migrating-graviton21
+  region: us-west-2
+  version: '1.20'
+
+managedNodeGroups:
+- name: intel-a
+  availabilityZones: 
+  - us-west-2a
+  instanceType: t3a.large
+  desiredCapacity: 1
+  ssh:
+    enableSsm: true
+  iam:
+    withAddonPolicies:
+      albIngress: true
+- name: intel-b
+  availabilityZones: 
+  - us-west-2b
+  instanceType: t3a.large
+  desiredCapacity: 1
+  ssh:
+    enableSsm: true
+  iam:
+    withAddonPolicies:
+      albIngress: true
+- name: intel-c
+  availabilityZones: 
+  - us-west-2c
+  instanceType: t3a.large
+  desiredCapacity: 1
+  ssh:
+    enableSsm: true
+  iam:
+    withAddonPolicies:
+      albIngress: true
+
+iam:
+  withOIDC: true
+
+availabilityZones:
+- us-west-2a
+- us-west-2b
+- us-west-2c
+
+addons:
+- name: vpc-cni
+  version: v1.9.0-eksbuild.1
+- name: kube-proxy
+  version: v1.20.4-eksbuild.2
+- name: coredns
+  version: v1.8.3-eksbuild.1
+
+gitops:
+  flux:
+    gitProvider: github
+    flags:
+      owner: "niallthomson"
+      repository: "migrating-x64-to-graviton2"
+      branch: "main"
+      namespace: "flux-system"
+      path: "flux/cluster"

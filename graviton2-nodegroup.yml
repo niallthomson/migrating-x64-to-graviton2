@@ -1,0 +1,42 @@
+---
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: migrating-graviton21
+  region: us-west-2
+
+managedNodeGroups:
+- name: graviton2-a
+  availabilityZones: 
+  - us-west-2a
+  instanceType: t4g.large
+  desiredCapacity: 1
+  ssh:
+    enableSsm: true
+  taints:
+  - key: graviton2
+    value: 'true'
+    effect: PreferNoSchedule
+- name: graviton2-b
+  availabilityZones: 
+  - us-west-2b
+  instanceType: t4g.large
+  desiredCapacity: 1
+  ssh:
+    enableSsm: true
+  taints:
+  - key: graviton2
+    value: 'true'
+    effect: PreferNoSchedule
+- name: graviton2-c
+  availabilityZones: 
+  - us-west-2c
+  instanceType: t4g.large
+  desiredCapacity: 1
+  ssh:
+    enableSsm: true
+  taints:
+  - key: graviton2
+    value: 'true'
+    effect: PreferNoSchedule
