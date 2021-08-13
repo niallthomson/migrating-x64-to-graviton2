@@ -3,7 +3,7 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: migrating-graviton
+  name: migrating-graviton21
   region: us-west-2
 
 managedNodeGroups:
