@@ -20,6 +20,8 @@ GITHUB_USERNAME="yourusername" eval "echo \"$(sed 's/"/\\"/g' cluster.yml.templa
 
 By default the cluster configuration generated will use the `us-west-2` region, if you wish to modify this you can further edit the `cluster.yml` file. Make sure to change both the region and the availability zones.
 
+You must also [create a GitHub Personal Access Token](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) for Flux to use to access GitHub repositories.
+
 
 
 ## Steps
@@ -27,6 +29,8 @@ By default the cluster configuration generated will use the `us-west-2` region, 
 Create initial cluster:
 
 ```
+export GITHUB_TOKEN='<personal access token>'
+
 eksctl create cluster -f cluster.yml
 ```
 
@@ -39,7 +43,7 @@ todo
 Add Graviton2 node group:
 
 ```
-eksctl create nodegroup -f graviton2-nodegroup.yml
+eksctl create nodegroup -f graviton2-nodegroup.yml --skip-outdated-addons-check
 ```
 
 Add the following to `workload-1` configuration to migrate (`flux/apps/workload-1/release.yaml`):
