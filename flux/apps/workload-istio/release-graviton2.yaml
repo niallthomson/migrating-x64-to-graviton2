@@ -23,6 +23,9 @@ spec:
       effect: "NoSchedule"
     nodeSelector:
       kubernetes.io/arch: arm64
+    ui:
+      message: "I'm on Graviton2"
+      color: "#fe9900" ##0065af
     replicaCount: 3
     affinity:
       podAntiAffinity:
