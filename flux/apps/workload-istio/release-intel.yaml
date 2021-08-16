@@ -20,7 +20,7 @@ spec:
       kubernetes.io/arch: amd64
     ui:
       message: "Running on x64"
-      icon: "https://github.com/cncf/artwork/raw/master/projects/kubernetes/icon/color/kubernetes-icon-color.png"
+      logo: "https://github.com/cncf/artwork/raw/master/projects/kubernetes/icon/color/kubernetes-icon-color.png"
     replicaCount: 3
     affinity:
       podAntiAffinity:

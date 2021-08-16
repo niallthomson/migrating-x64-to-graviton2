@@ -25,7 +25,7 @@ spec:
       kubernetes.io/arch: arm64
     ui:
       message: "Running on Graviton2"
-      icon: "https://github.com/cncf/artwork/raw/master/projects/kubernetes/icon/color/kubernetes-icon-color.png"
+      logo: "https://github.com/cncf/artwork/raw/master/projects/kubernetes/icon/color/kubernetes-icon-color.png"
       color: "#fe9900" ##0065af
     replicaCount: 3
     affinity:
