@@ -18,6 +18,8 @@ spec:
   values:
     nodeSelector:
       kubernetes.io/arch: amd64
+    ui:
+      message: "Running on x64"
     replicaCount: 3
     affinity:
       podAntiAffinity:
