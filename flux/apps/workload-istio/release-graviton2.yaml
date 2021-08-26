@@ -16,6 +16,9 @@ spec:
     remediation:
       retries: 3
   values:
+    metadata:
+      labels:
+        arch: arm64
     tolerations:
     - key: "graviton2"
       operator: "Equal"

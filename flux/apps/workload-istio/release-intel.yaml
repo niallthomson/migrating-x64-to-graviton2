@@ -16,6 +16,9 @@ spec:
     remediation:
       retries: 3
   values:
+    metadata:
+      labels:
+        arch: amd64
     nodeSelector:
       kubernetes.io/arch: amd64
     fault:
