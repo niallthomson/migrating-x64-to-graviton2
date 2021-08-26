@@ -6,4 +6,4 @@ resources:
   - prometheus
   - grafana
   - workload-1
-  - workload-istio
+  #- workload-istio
