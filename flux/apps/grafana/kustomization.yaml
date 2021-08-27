@@ -3,4 +3,5 @@ kind: Kustomization
 namespace: grafana
 resources:
   - namespace.yaml
+  - test-dashboard.yaml
   - release.yaml
