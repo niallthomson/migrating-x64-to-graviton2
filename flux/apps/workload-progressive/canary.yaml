@@ -27,11 +27,11 @@ spec:
     - "*"
   analysis:
     # schedule interval (default 60s)
-    interval: 15s
+    interval: 1m
     # max number of failed metric checks before rollback
-    threshold: 10
-    # total number of iterations
-    iterations: 10
+    threshold: 5
+    maxWeight: 70
+    stepWeight: 10
     # canary match condition
     match:
       #- headers:
