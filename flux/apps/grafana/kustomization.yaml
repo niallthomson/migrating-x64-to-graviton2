@@ -4,4 +4,5 @@ namespace: grafana
 resources:
   - namespace.yaml
   - test-dashboard.yaml
+  - flagger-canary-dashboard.yaml
   - release.yaml
