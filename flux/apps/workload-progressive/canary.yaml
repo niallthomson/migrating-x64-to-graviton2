@@ -33,42 +33,38 @@ spec:
     maxWeight: 70
     stepWeight: 10
     # canary match condition
-    match:
-      #- headers:
-      #    user-agent:
-      #      regex: ".*Firefox.*"
-      #      #regex: "^(?!.*(?:Chrome|Edge)).*Safari"
-      - headers:
-          cookie:
-            regex: "^(.*?;)?(type=insider)(;.*)?$"
+    #match:
+    #- headers:
+    #    cookie:
+    #      regex: "^(.*?;)?(type=insider)(;.*)?$"
     # Istio Prometheus checks
     metrics:
-      - name: error-rate
-        templateRef:
-          name: error-rate
-          namespace: istio-system
-        thresholdRange:
-          max: 1
-        interval: 30s
-      - name: latency
-        templateRef:
-          name: latency
-          namespace: istio-system
-        thresholdRange:
-          max: 500
-        interval: 30s
+    - name: error-rate
+      templateRef:
+        name: error-rate
+        namespace: istio-system
+      thresholdRange:
+        max: 1
+      interval: 30s
+    - name: latency
+      templateRef:
+        name: latency
+        namespace: istio-system
+      thresholdRange:
+        max: 500
+      interval: 30s
     # tests
     webhooks:
-      - name: conformance-test
-        type: pre-rollout
-        timeout: 15s
-        url: http://flagger-loadtester.loadtest/
-        metadata:
-          type: bash
-          cmd: "curl -sd 'test' http://frontend-canary.workload-progressive:9898/token | grep token"
-      - name: load-test
-        type: rollout
-        timeout: 1m
-        url: http://flagger-loadtester.loadtest/
-        metadata:
-          cmd: "hey -z 2m -q 10 -c 2 -H 'Cookie: type=insider' http://frontend.workload-progressive:9898/"
+    - name: conformance-test
+      type: pre-rollout
+      timeout: 15s
+      url: http://flagger-loadtester.loadtest/
+      metadata:
+        type: bash
+        cmd: "curl -sd 'test' http://frontend-canary.workload-progressive:9898/token | grep token"
+    - name: load-test
+      type: rollout
+      timeout: 1m
+      url: http://flagger-loadtester.loadtest/
+      metadata:
+        cmd: "hey -z 2m -q 10 -c 2 -H 'Cookie: type=insider' http://frontend.workload-progressive:9898/"
