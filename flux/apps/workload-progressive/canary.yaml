@@ -58,17 +58,17 @@ spec:
           max: 500
         interval: 30s
     # tests
-    #webhooks:
-    #  - name: conformance-test
-    #    type: pre-rollout
-    #    timeout: 15s
-    #    url: http://flagger-loadtester.prod/
-    #    metadata:
-    #      type: bash
-    #      cmd: "curl -sd 'test' http://frontend-canary.prod:9898/token | grep token"
-    #  - name: load-test
-    #    type: rollout
-    #    timeout: 15s
-    #    url: http://flagger-loadtester.prod/
-    #    metadata:
-    #      cmd: "hey -z 1m -q 10 -c 2 -H 'Cookie: type=insider' http://frontend.prod:9898/"
+    webhooks:
+      - name: conformance-test
+        type: pre-rollout
+        timeout: 15s
+        url: http://flagger-loadtester.util/
+        metadata:
+          type: bash
+          cmd: "curl -sd 'test' http://frontend-canary.workload-progressive:9898/token | grep token"
+      - name: load-test
+        type: rollout
+        timeout: 15s
+        url: http://flagger-loadtester.util/
+        metadata:
+          cmd: "hey -z 1m -q 10 -c 2 -H 'Cookie: type=insider' http://frontend.workload-progressive:9898/"
