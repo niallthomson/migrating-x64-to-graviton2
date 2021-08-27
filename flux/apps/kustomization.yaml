@@ -7,4 +7,4 @@ resources:
   - loadtest
   - workload-1
   - workload-progressive
-  - workload-istio
+  #- workload-istio
