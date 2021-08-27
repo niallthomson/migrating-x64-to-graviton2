@@ -21,6 +21,11 @@ spec:
       replicaCount: 1
       service:
         type: LoadBalancer
+      global:
+        # Scrape more frequently for demo
+        scrape_interval: 15s
+        scrape_timeout: 10s
+        evaluation_interval: 1m
     alertmanager:
       enabled: false
     pushgateway:
