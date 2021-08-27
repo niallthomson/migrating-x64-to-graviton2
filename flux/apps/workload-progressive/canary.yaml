@@ -34,10 +34,10 @@ spec:
     iterations: 10
     # canary match condition
     match:
-      - headers:
-          user-agent:
-            regex: ".*Firefox.*"
-            #regex: "^(?!.*(?:Chrome|Edge)).*Safari"
+      #- headers:
+      #    user-agent:
+      #      regex: ".*Firefox.*"
+      #      #regex: "^(?!.*(?:Chrome|Edge)).*Safari"
       - headers:
           cookie:
             regex: "^(.*?;)?(type=insider)(;.*)?$"
