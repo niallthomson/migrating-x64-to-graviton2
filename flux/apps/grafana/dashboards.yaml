@@ -51,7 +51,7 @@ data:
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "prometheus",
+          "datasource": null,
           "format": "ops",
           "gauge": {
             "maxValue": 100,
@@ -133,7 +133,7 @@ data:
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
-          "datasource": "prometheus",
+          "datasource": null,
           "decimals": null,
           "format": "percentunit",
           "gauge": {
@@ -215,7 +215,7 @@ data:
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "prometheus",
+          "datasource": null,
           "format": "ops",
           "gauge": {
             "maxValue": 100,
@@ -297,7 +297,7 @@ data:
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
-          "datasource": "prometheus",
+          "datasource": null,
           "decimals": null,
           "format": "percentunit",
           "gauge": {
@@ -375,7 +375,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "prometheus",
+          "datasource": null,
           "fill": 1,
           "gridPos": {
             "h": 4,
@@ -481,7 +481,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "prometheus",
+          "datasource": null,
           "fill": 1,
           "gridPos": {
             "h": 4,
@@ -602,7 +602,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "prometheus",
+          "datasource": null,
           "fill": 1,
           "gridPos": {
             "h": 6,
@@ -692,7 +692,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "prometheus",
+          "datasource": null,
           "fill": 1,
           "gridPos": {
             "h": 6,
@@ -782,7 +782,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "prometheus",
+          "datasource": null,
           "fill": 1,
           "gridPos": {
             "h": 6,
@@ -874,7 +874,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "prometheus",
+          "datasource": null,
           "fill": 1,
           "gridPos": {
             "h": 6,
@@ -966,7 +966,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "prometheus",
+          "datasource": null,
           "fill": 1,
           "gridPos": {
             "h": 6,
@@ -1072,7 +1072,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "prometheus",
+          "datasource": null,
           "fill": 1,
           "gridPos": {
             "h": 6,
@@ -1193,7 +1193,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "prometheus",
+          "datasource": null,
           "fill": 0,
           "gridPos": {
             "h": 6,
@@ -1292,7 +1292,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "prometheus",
+          "datasource": null,
           "fill": 0,
           "gridPos": {
             "h": 6,
@@ -1391,7 +1391,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "prometheus",
+          "datasource": null,
           "fill": 0,
           "gridPos": {
             "h": 6,
@@ -1489,7 +1489,7 @@ data:
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "prometheus",
+          "datasource": null,
           "fill": 0,
           "gridPos": {
             "h": 6,
@@ -1592,7 +1592,7 @@ data:
           {
             "allValue": null,
             "current": {},
-            "datasource": "prometheus",
+            "datasource": null,
             "definition": "",
             "hide": 0,
             "includeAll": false,
@@ -1614,7 +1614,7 @@ data:
           {
             "allValue": null,
             "current": {},
-            "datasource": "prometheus",
+            "datasource": null,
             "definition": "",
             "hide": 0,
             "includeAll": false,
@@ -1636,7 +1636,7 @@ data:
           {
             "allValue": null,
             "current": {},
-            "datasource": "prometheus",
+            "datasource": null,
             "definition": "",
             "hide": 0,
             "includeAll": false,
