@@ -5,4 +5,5 @@ resources:
   - prometheus
   - grafana
   - workload-1
+  - workload-progressive
   - workload-istio
