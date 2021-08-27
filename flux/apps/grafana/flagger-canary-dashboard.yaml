@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: istio-canary-dashboard
+  name: flagger-canary-dashboard
   labels:
      grafana_dashboard: "1"
 data:
-  k8s-dashboard.json: |-
+  flagger-dashboard.json: |-
     {
       "annotations": {
         "list": [
