@@ -21,6 +21,10 @@ spec:
       type: LoadBalancer
     adminPassword: graviton234!
 
+    sidecar:
+      dashboards:
+        enabled: true
+
     datasources:
       datasources.yaml:
         apiVersion: 1
