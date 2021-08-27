@@ -4,6 +4,7 @@ resources:
   - sources
   - prometheus
   - grafana
+  - loadtest
   - workload-1
   - workload-progressive
   - workload-istio
