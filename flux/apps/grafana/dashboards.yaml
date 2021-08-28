@@ -23,248 +23,518 @@ data:
       "editable": true,
       "gnetId": null,
       "graphTooltip": 0,
-      "id": 1,
-      "iteration": 1549736611069,
+      "id": 5,
+      "iteration": 1630103991422,
       "links": [],
       "panels": [
         {
-          "content": "<div class=\"dashboard-header text-center\">\n<span>RED: $canary.$namespace</span>\n</div>",
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
           "gridPos": {
-            "h": 3,
+            "h": 8,
             "w": 24,
             "x": 0,
             "y": 0
           },
+          "id": 112,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "pluginVersion": "8.0.5",
+          "targets": [
+            {
+              "exemplar": true,
+              "expr": "sum by (arch) (label_replace(kube_pod_info{namespace=\"$namespace\"} * on(node) group_left(kernel_version) kube_node_info, \"arch\", \"$2\", \"kernel_version\", \"(.*)\\\\.(.*)\"))",
+              "format": "time_series",
+              "instant": false,
+              "interval": "",
+              "legendFormat": "{{arch}}",
+              "refId": "A"
+            }
+          ],
+          "title": "Pods by Architecture",
+          "transformations": [],
+          "type": "timeseries"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "0": {
+                      "color": "orange",
+                      "index": 0,
+                      "text": "In-Progress"
+                    },
+                    "1": {
+                      "color": "green",
+                      "index": 1,
+                      "text": "Steady"
+                    }
+                  },
+                  "type": "value"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 5,
+            "x": 0,
+            "y": 8
+          },
+          "id": 114,
+          "options": {
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "text": {}
+          },
+          "pluginVersion": "8.0.5",
+          "targets": [
+            {
+              "exemplar": true,
+              "expr": "flagger_canary_status{namespace=\"$namespace\", name=\"$canary\"}",
+              "instant": false,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "title": "Rollout Status",
+          "type": "gauge"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "max": 100,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 9,
+            "x": 5,
+            "y": 8
+          },
+          "id": 108,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.0.5",
+          "targets": [
+            {
+              "exemplar": true,
+              "expr": "flagger_canary_weight{namespace=\"$namespace\", workload=\"$canary-primary\"}",
+              "instant": false,
+              "interval": "",
+              "legendFormat": "Primary",
+              "refId": "A"
+            }
+          ],
+          "title": "Primary Weight",
+          "type": "stat"
+        },
+        {
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "max": 100,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 10,
+            "x": 14,
+            "y": 8
+          },
+          "id": 110,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.0.5",
+          "targets": [
+            {
+              "exemplar": true,
+              "expr": "flagger_canary_weight{namespace=\"$namespace\", workload=\"$canary\"}",
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "title": "Canary Weight",
+          "type": "stat"
+        },
+        {
+          "datasource": null,
+          "gridPos": {
+            "h": 3,
+            "w": 24,
+            "x": 0,
+            "y": 12
+          },
           "id": 89,
           "links": [],
-          "mode": "html",
-          "title": "",
+          "options": {
+            "content": "<div class=\"dashboard-header text-center\">\n<span>RED: $canary.$namespace</span>\n</div>",
+            "mode": "html"
+          },
+          "pluginVersion": "8.0.5",
           "transparent": true,
           "type": "text"
         },
         {
           "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
           "datasource": null,
-          "format": "ops",
-          "gauge": {
-            "maxValue": 100,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "rgb(31, 120, 193)",
+                "mode": "fixed"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "text": "N/A"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "ops"
+            },
+            "overrides": []
           },
           "gridPos": {
             "h": 4,
             "w": 6,
             "x": 0,
-            "y": 3
+            "y": 15
           },
           "id": 90,
           "interval": null,
           "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
           "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": true,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
+          "options": {
+            "colorMode": "none",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
           },
-          "tableColumn": "",
+          "pluginVersion": "8.0.5",
           "targets": [
             {
-              "expr": "round(sum(rate(istio_requests_total{reporter=\"destination\",destination_workload_namespace=~\"$namespace\",destination_workload=~\"$primary\"}[1m])), 0.001)",
+              "exemplar": true,
+              "expr": "round(sum(rate(istio_requests_total{reporter=\"destination\",destination_workload_namespace=~\"$namespace\",destination_workload=~\"$canary-primary\"}[1m])), 0.001)",
               "format": "time_series",
+              "interval": "",
               "intervalFactor": 1,
+              "legendFormat": "",
               "refId": "A",
               "step": 4
             }
           ],
-          "thresholds": "",
           "title": "Primary: Incoming Request Volume",
-          "transparent": false,
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
+          "type": "stat"
         },
         {
           "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
           "datasource": null,
-          "decimals": null,
-          "format": "percentunit",
-          "gauge": {
-            "maxValue": 100,
-            "minValue": 80,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": false
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "rgb(31, 120, 193)",
+                "mode": "fixed"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "text": "N/A"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "rgba(50, 172, 45, 0.97)",
+                    "value": null
+                  },
+                  {
+                    "color": "rgba(237, 129, 40, 0.89)",
+                    "value": 95
+                  },
+                  {
+                    "color": "rgba(245, 54, 54, 0.9)",
+                    "value": 99
+                  }
+                ]
+              },
+              "unit": "percentunit"
+            },
+            "overrides": []
           },
           "gridPos": {
             "h": 4,
             "w": 6,
             "x": 6,
-            "y": 3
+            "y": 15
           },
           "id": 98,
           "interval": null,
           "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
           "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": true,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
+          "options": {
+            "colorMode": "none",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "mean"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
           },
-          "tableColumn": "",
+          "pluginVersion": "8.0.5",
           "targets": [
             {
-              "expr": "sum(irate(istio_requests_total{reporter=\"destination\",destination_workload_namespace=~\"$namespace\",destination_workload=~\"$primary\",response_code!~\"5.*\"}[1m])) / sum(irate(istio_requests_total{reporter=\"destination\",destination_workload_namespace=~\"$namespace\",destination_workload=~\"$primary\"}[1m]))",
+              "expr": "sum(irate(istio_requests_total{reporter=\"destination\",destination_workload_namespace=~\"$namespace\",destination_workload=~\"$canary-primary\",response_code!~\"5.*\"}[1m])) / sum(irate(istio_requests_total{reporter=\"destination\",destination_workload_namespace=~\"$namespace\",destination_workload=~\"$canary-primary\"}[1m]))",
               "format": "time_series",
               "intervalFactor": 1,
               "refId": "B"
             }
           ],
-          "thresholds": "95, 99, 99.5",
           "title": "Incoming Success Rate",
-          "transparent": false,
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "avg"
+          "type": "stat"
         },
         {
           "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
           "datasource": null,
-          "format": "ops",
-          "gauge": {
-            "maxValue": 100,
-            "minValue": 0,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "#7eb26d",
+                "mode": "fixed"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "text": "N/A"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "ops"
+            },
+            "overrides": []
           },
           "gridPos": {
             "h": 4,
             "w": 6,
             "x": 12,
-            "y": 3
+            "y": 15
           },
           "id": 97,
           "interval": null,
           "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
           "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "sparkline": {
-            "fillColor": "rgba(40, 224, 65, 0.18)",
-            "full": true,
-            "lineColor": "#7eb26d",
-            "show": true
+          "options": {
+            "colorMode": "none",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
           },
-          "tableColumn": "",
+          "pluginVersion": "8.0.5",
           "targets": [
             {
               "expr": "round(sum(rate(istio_requests_total{reporter=\"destination\",destination_workload_namespace=~\"$namespace\",destination_workload=~\"$canary\"}[1m])), 0.001)",
@@ -274,80 +544,76 @@ data:
               "step": 4
             }
           ],
-          "thresholds": "",
           "title": "Canary: Incoming Request Volume",
-          "transparent": false,
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
+          "type": "stat"
         },
         {
           "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
           "datasource": null,
-          "decimals": null,
-          "format": "percentunit",
-          "gauge": {
-            "maxValue": 100,
-            "minValue": 80,
-            "show": false,
-            "thresholdLabels": false,
-            "thresholdMarkers": false
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "#7eb26d",
+                "mode": "fixed"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "text": "N/A"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "rgba(50, 172, 45, 0.97)",
+                    "value": null
+                  },
+                  {
+                    "color": "rgba(237, 129, 40, 0.89)",
+                    "value": 95
+                  },
+                  {
+                    "color": "rgba(245, 54, 54, 0.9)",
+                    "value": 99
+                  }
+                ]
+              },
+              "unit": "percentunit"
+            },
+            "overrides": []
           },
           "gridPos": {
             "h": 4,
             "w": 6,
             "x": 18,
-            "y": 3
+            "y": 15
           },
           "id": 99,
           "interval": null,
           "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
           "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "sparkline": {
-            "fillColor": "rgba(40, 224, 65, 0.18)",
-            "full": true,
-            "lineColor": "#7eb26d",
-            "show": true
+          "options": {
+            "colorMode": "none",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
           },
-          "tableColumn": "",
+          "pluginVersion": "8.0.5",
           "targets": [
             {
               "expr": "sum(irate(istio_requests_total{reporter=\"destination\",destination_workload_namespace=~\"$namespace\",destination_workload=~\"$canary\",response_code!~\"5.*\"}[1m])) / sum(irate(istio_requests_total{reporter=\"destination\",destination_workload_namespace=~\"$namespace\",destination_workload=~\"$canary\"}[1m]))",
@@ -356,19 +622,8 @@ data:
               "refId": "B"
             }
           ],
-          "thresholds": "95, 99, 99.5",
           "title": "Incoming Success Rate",
-          "transparent": false,
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
+          "type": "stat"
         },
         {
           "aliasColors": {},
@@ -377,12 +632,14 @@ data:
           "dashes": false,
           "datasource": null,
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 4,
             "w": 12,
             "x": 0,
-            "y": 7
+            "y": 19
           },
+          "hiddenSeries": false,
           "id": 96,
           "legend": {
             "alignAsTable": false,
@@ -401,7 +658,11 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "8.0.5",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -411,7 +672,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "histogram_quantile(0.50, sum(irate(istio_request_duration_milliseconds_bucket{reporter=\"destination\",destination_workload=~\"$primary\", destination_workload_namespace=~\"$namespace\"}[1m])) by (le))",
+              "expr": "histogram_quantile(0.50, sum(irate(istio_request_duration_milliseconds_bucket{reporter=\"destination\",destination_workload=~\"$canary-primary\", destination_workload_namespace=~\"$namespace\"}[1m])) by (le))",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -419,7 +680,7 @@ data:
               "refId": "A"
             },
             {
-              "expr": "histogram_quantile(0.90, sum(irate(istio_request_duration_milliseconds_bucket{reporter=\"destination\",destination_workload=~\"$primary\", destination_workload_namespace=~\"$namespace\"}[1m])) by (le))",
+              "expr": "histogram_quantile(0.90, sum(irate(istio_request_duration_milliseconds_bucket{reporter=\"destination\",destination_workload=~\"$canary-primary\", destination_workload_namespace=~\"$namespace\"}[1m])) by (le))",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -427,7 +688,7 @@ data:
               "refId": "B"
             },
             {
-              "expr": "histogram_quantile(0.99, sum(irate(istio_request_duration_milliseconds_bucket{reporter=\"destination\",destination_workload=~\"$primary\", destination_workload_namespace=~\"$namespace\"}[1m])) by (le))",
+              "expr": "histogram_quantile(0.99, sum(irate(istio_request_duration_milliseconds_bucket{reporter=\"destination\",destination_workload=~\"$canary-primary\", destination_workload_namespace=~\"$namespace\"}[1m])) by (le))",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -483,12 +744,14 @@ data:
           "dashes": false,
           "datasource": null,
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 4,
             "w": 12,
             "x": 12,
-            "y": 7
+            "y": 19
           },
+          "hiddenSeries": false,
           "id": 91,
           "legend": {
             "alignAsTable": false,
@@ -507,7 +770,11 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "8.0.5",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -583,17 +850,20 @@ data:
           }
         },
         {
-          "content": "<div class=\"dashboard-header text-center\">\n<span>USE: $canary.$namespace</span>\n</div>",
+          "datasource": null,
           "gridPos": {
             "h": 3,
             "w": 24,
             "x": 0,
-            "y": 11
+            "y": 23
           },
           "id": 101,
           "links": [],
-          "mode": "html",
-          "title": "",
+          "options": {
+            "content": "<div class=\"dashboard-header text-center\">\n<span>USE: $canary.$namespace</span>\n</div>",
+            "mode": "html"
+          },
+          "pluginVersion": "8.0.5",
           "transparent": true,
           "type": "text"
         },
@@ -604,12 +874,14 @@ data:
           "dashes": false,
           "datasource": null,
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 6,
             "w": 12,
             "x": 0,
-            "y": 14
+            "y": 26
           },
+          "hiddenSeries": false,
           "id": 100,
           "legend": {
             "alignAsTable": false,
@@ -628,7 +900,11 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "8.0.5",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -638,7 +914,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(container_cpu_usage_seconds_total{cpu=\"total\",namespace=\"$namespace\",pod=~\"$primary.*\", container!~\"POD|istio-proxy\"}[1m])) by (pod)",
+              "expr": "sum(rate(container_cpu_usage_seconds_total{cpu=\"total\",namespace=\"$namespace\",pod=~\"$canary-primary.*\", container!~\"POD|istio-proxy\"}[1m])) by (pod)",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -656,6 +932,7 @@ data:
             "sort": 0,
             "value_type": "individual"
           },
+          "transformations": [],
           "type": "graph",
           "xaxis": {
             "buckets": null,
@@ -694,12 +971,14 @@ data:
           "dashes": false,
           "datasource": null,
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 6,
             "w": 12,
             "x": 12,
-            "y": 14
+            "y": 26
           },
+          "hiddenSeries": false,
           "id": 102,
           "legend": {
             "alignAsTable": false,
@@ -718,7 +997,11 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "8.0.5",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -728,7 +1011,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(container_cpu_usage_seconds_total{cpu=\"total\",namespace=\"$namespace\",pod=~\"$canary.*\", pod!~\"$primary.*\", container!~\"POD|istio-proxy\"}[1m])) by (pod)",
+              "expr": "sum(rate(container_cpu_usage_seconds_total{cpu=\"total\",namespace=\"$namespace\",pod=~\"$canary.*\", pod!~\"$canary-primary.*\", container!~\"POD|istio-proxy\"}[1m])) by (pod)",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -784,12 +1067,14 @@ data:
           "dashes": false,
           "datasource": null,
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 6,
             "w": 12,
             "x": 0,
-            "y": 20
+            "y": 32
           },
+          "hiddenSeries": false,
           "id": 103,
           "legend": {
             "alignAsTable": false,
@@ -808,7 +1093,11 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "8.0.5",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -818,7 +1107,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$primary.*\", container!~\"POD|istio-proxy\"}) by (pod)",
+              "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$canary-primary.*\", container!~\"POD|istio-proxy\"}) by (pod)",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -876,12 +1165,14 @@ data:
           "dashes": false,
           "datasource": null,
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 6,
             "w": 12,
             "x": 12,
-            "y": 20
+            "y": 32
           },
+          "hiddenSeries": false,
           "id": 104,
           "legend": {
             "alignAsTable": false,
@@ -900,7 +1191,11 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "8.0.5",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -910,7 +1205,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$canary.*\", pod!~\"$primary.*\", container!~\"POD|istio-proxy\"}) by (pod)",
+              "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",pod=~\"$canary.*\", pod!~\"$canary-primary.*\", container!~\"POD|istio-proxy\"}) by (pod)",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -968,12 +1263,14 @@ data:
           "dashes": false,
           "datasource": null,
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 6,
             "w": 12,
             "x": 0,
-            "y": 26
+            "y": 38
           },
+          "hiddenSeries": false,
           "id": 105,
           "legend": {
             "alignAsTable": false,
@@ -992,7 +1289,11 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "8.0.5",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1011,14 +1312,14 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate (container_network_receive_bytes_total{namespace=\"$namespace\",pod=~\"$primary.*\"}[1m])) ",
+              "expr": "sum(rate (container_network_receive_bytes_total{namespace=\"$namespace\",pod=~\"$canary-primary.*\"}[1m])) ",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "received",
               "refId": "A"
             },
             {
-              "expr": "-sum (rate (container_network_transmit_bytes_total{namespace=\"$namespace\",pod=~\"$primary.*\"}[1m]))",
+              "expr": "-sum (rate (container_network_transmit_bytes_total{namespace=\"$namespace\",pod=~\"$canary-primary.*\"}[1m]))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "transmited",
@@ -1074,12 +1375,14 @@ data:
           "dashes": false,
           "datasource": null,
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 6,
             "w": 12,
             "x": 12,
-            "y": 26
+            "y": 38
           },
+          "hiddenSeries": false,
           "id": 106,
           "legend": {
             "alignAsTable": false,
@@ -1098,7 +1401,11 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "8.0.5",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1117,14 +1424,14 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate (container_network_receive_bytes_total{namespace=\"$namespace\",pod=~\"$canary.*\",pod!~\"$primary.*\"}[1m])) ",
+              "expr": "sum(rate (container_network_receive_bytes_total{namespace=\"$namespace\",pod=~\"$canary.*\",pod!~\"$canary-primary.*\"}[1m])) ",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "received",
               "refId": "A"
             },
             {
-              "expr": "-sum (rate (container_network_transmit_bytes_total{namespace=\"$namespace\",pod=~\"$canary.*\",pod!~\"$primary.*\"}[1m]))",
+              "expr": "-sum (rate (container_network_transmit_bytes_total{namespace=\"$namespace\",pod=~\"$canary.*\",pod!~\"$canary-primary.*\"}[1m]))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "transmited",
@@ -1174,17 +1481,20 @@ data:
           }
         },
         {
-          "content": "<div class=\"dashboard-header text-center\">\n<span>IN/OUTBOUND: $canary.$namespace</span>\n</div>",
+          "datasource": null,
           "gridPos": {
             "h": 3,
             "w": 24,
             "x": 0,
-            "y": 32
+            "y": 44
           },
           "id": 45,
           "links": [],
-          "mode": "html",
-          "title": "",
+          "options": {
+            "content": "<div class=\"dashboard-header text-center\">\n<span>IN/OUTBOUND: $canary.$namespace</span>\n</div>",
+            "mode": "html"
+          },
+          "pluginVersion": "8.0.5",
           "transparent": true,
           "type": "text"
         },
@@ -1195,12 +1505,14 @@ data:
           "dashes": false,
           "datasource": null,
           "fill": 0,
+          "fillGradient": 0,
           "gridPos": {
             "h": 6,
             "w": 12,
             "x": 0,
-            "y": 35
+            "y": 47
           },
+          "hiddenSeries": false,
           "id": 25,
           "legend": {
             "avg": false,
@@ -1216,7 +1528,11 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null as zero",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "8.0.5",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1226,7 +1542,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "round(sum(irate(istio_requests_total{connection_security_policy=\"mutual_tls\", destination_workload_namespace=~\"$namespace\", destination_workload=~\"$primary\", reporter=\"destination\"}[1m])) by (source_workload, source_workload_namespace, response_code), 0.001)",
+              "expr": "round(sum(irate(istio_requests_total{connection_security_policy=\"mutual_tls\", destination_workload_namespace=~\"$namespace\", destination_workload=~\"$canary-primary\", reporter=\"destination\"}[1m])) by (source_workload, source_workload_namespace, response_code), 0.001)",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -1235,7 +1551,7 @@ data:
               "step": 2
             },
             {
-              "expr": "round(sum(irate(istio_requests_total{connection_security_policy!=\"mutual_tls\", destination_workload_namespace=~\"$namespace\", destination_workload=~\"$primary\", reporter=\"destination\"}[1m])) by (source_workload, source_workload_namespace, response_code), 0.001)",
+              "expr": "round(sum(irate(istio_requests_total{connection_security_policy!=\"mutual_tls\", destination_workload_namespace=~\"$namespace\", destination_workload=~\"$canary-primary\", reporter=\"destination\"}[1m])) by (source_workload, source_workload_namespace, response_code), 0.001)",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -1294,12 +1610,14 @@ data:
           "dashes": false,
           "datasource": null,
           "fill": 0,
+          "fillGradient": 0,
           "gridPos": {
             "h": 6,
             "w": 12,
             "x": 12,
-            "y": 35
+            "y": 47
           },
+          "hiddenSeries": false,
           "id": 92,
           "legend": {
             "avg": false,
@@ -1315,7 +1633,11 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null as zero",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "8.0.5",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1393,12 +1715,14 @@ data:
           "dashes": false,
           "datasource": null,
           "fill": 0,
+          "fillGradient": 0,
           "gridPos": {
             "h": 6,
             "w": 12,
             "x": 0,
-            "y": 41
+            "y": 53
           },
+          "hiddenSeries": false,
           "id": 70,
           "legend": {
             "avg": false,
@@ -1414,7 +1738,11 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null as zero",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "8.0.5",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1424,7 +1752,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "round(sum(irate(istio_requests_total{connection_security_policy=\"mutual_tls\", source_workload_namespace=~\"$namespace\", source_workload=~\"$primary\", reporter=\"source\"}[1m])) by (destination_service, response_code), 0.001)",
+              "expr": "round(sum(irate(istio_requests_total{connection_security_policy=\"mutual_tls\", source_workload_namespace=~\"$namespace\", source_workload=~\"$canary-primary\", reporter=\"source\"}[1m])) by (destination_service, response_code), 0.001)",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{ destination_service }} : {{ response_code }} (🔐mTLS)",
@@ -1432,7 +1760,7 @@ data:
               "step": 2
             },
             {
-              "expr": "round(sum(irate(istio_requests_total{connection_security_policy!=\"mutual_tls\", source_workload_namespace=~\"$namespace\", source_workload=~\"$primary\", reporter=\"source\"}[1m])) by (destination_service, response_code), 0.001)",
+              "expr": "round(sum(irate(istio_requests_total{connection_security_policy!=\"mutual_tls\", source_workload_namespace=~\"$namespace\", source_workload=~\"$canary-primary\", reporter=\"source\"}[1m])) by (destination_service, response_code), 0.001)",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -1491,12 +1819,14 @@ data:
           "dashes": false,
           "datasource": null,
           "fill": 0,
+          "fillGradient": 0,
           "gridPos": {
             "h": 6,
             "w": 12,
             "x": 12,
-            "y": 41
+            "y": 53
           },
+          "hiddenSeries": false,
           "id": 94,
           "legend": {
             "avg": false,
@@ -1512,7 +1842,11 @@ data:
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null as zero",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "8.0.5",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1584,7 +1918,7 @@ data:
         }
       ],
       "refresh": "10s",
-      "schemaVersion": 16,
+      "schemaVersion": 30,
       "style": "dark",
       "tags": [],
       "templating": {
@@ -1594,19 +1928,23 @@ data:
             "current": {},
             "datasource": null,
             "definition": "",
+            "description": null,
+            "error": null,
             "hide": 0,
             "includeAll": false,
             "label": "Namespace",
             "multi": false,
             "name": "namespace",
             "options": [],
-            "query": "query_result(sum(istio_requests_total) by (destination_workload_namespace) or sum(istio_tcp_sent_bytes_total) by (destination_workload_namespace))",
+            "query": {
+              "query": "query_result(sum(istio_requests_total) by (destination_workload_namespace) or sum(istio_tcp_sent_bytes_total) by (destination_workload_namespace))",
+              "refId": "Prometheus-namespace-Variable-Query"
+            },
             "refresh": 1,
             "regex": "/.*_namespace=\"([^\"]*).*/",
             "skipUrlSync": false,
             "sort": 0,
             "tagValuesQuery": "",
-            "tags": [],
             "tagsQuery": "",
             "type": "query",
             "useTags": false
@@ -1615,42 +1953,24 @@ data:
             "allValue": null,
             "current": {},
             "datasource": null,
-            "definition": "",
-            "hide": 0,
-            "includeAll": false,
-            "label": "Primary",
-            "multi": false,
-            "name": "primary",
-            "options": [],
-            "query": "query_result(sum(istio_requests_total{destination_workload_namespace=~\"$namespace\"}) by (destination_workload))",
-            "refresh": 1,
-            "regex": "/.*destination_workload=\"([^\"]*).*/",
-            "skipUrlSync": false,
-            "sort": 1,
-            "tagValuesQuery": "",
-            "tags": [],
-            "tagsQuery": "",
-            "type": "query",
-            "useTags": false
-          },
-          {
-            "allValue": null,
-            "current": {},
-            "datasource": null,
-            "definition": "",
+            "definition": "query_result(sum(flagger_canary_status{namespace=~\"$namespace\"}) by (name))",
+            "description": null,
+            "error": null,
             "hide": 0,
             "includeAll": false,
             "label": "Canary",
             "multi": false,
             "name": "canary",
             "options": [],
-            "query": "query_result(sum(istio_requests_total{destination_workload_namespace=~\"$namespace\"}) by (destination_workload))",
+            "query": {
+              "query": "query_result(sum(flagger_canary_status{namespace=~\"$namespace\"}) by (name))",
+              "refId": "StandardVariableQuery"
+            },
             "refresh": 1,
-            "regex": "/.*destination_workload=\"([^\"]*).*/",
+            "regex": "/.*name=\"([^\"]*).*/",
             "skipUrlSync": false,
             "sort": 1,
             "tagValuesQuery": "",
-            "tags": [],
             "tagsQuery": "",
             "type": "query",
             "useTags": false
@@ -1658,7 +1978,7 @@ data:
         ]
       },
       "time": {
-        "from": "now-5m",
+        "from": "now-30m",
         "to": "now"
       },
       "timepicker": {
@@ -1687,8 +2007,8 @@ data:
         ]
       },
       "timezone": "",
-      "title": "Flagger Canary",
-      "uid": "flagger-canary",
+      "title": "Flagger Rollout",
+      "uid": "jlnxBSV7q",
       "version": 3
     }
   test-dashboard.json: |-
