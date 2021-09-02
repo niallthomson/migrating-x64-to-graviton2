@@ -1937,11 +1937,11 @@ data:
             "name": "namespace",
             "options": [],
             "query": {
-              "query": "query_result(sum(istio_requests_total) by (destination_workload_namespace) or sum(istio_tcp_sent_bytes_total) by (destination_workload_namespace))",
-              "refId": "Prometheus-namespace-Variable-Query"
+              "query": "query_result(sum by(namespace) (flagger_canary_status) )",
+              "refId": "StandardVariableQuery"
             },
             "refresh": 1,
-            "regex": "/.*_namespace=\"([^\"]*).*/",
+            "regex": "/.*namespace=\"([^\"]*).*/",
             "skipUrlSync": false,
             "sort": 0,
             "tagValuesQuery": "",
@@ -1953,7 +1953,7 @@ data:
             "allValue": null,
             "current": {},
             "datasource": null,
-            "definition": "query_result(sum(flagger_canary_status{namespace=~\"$namespace\"}) by (name))",
+            "definition": "",
             "description": null,
             "error": null,
             "hide": 0,

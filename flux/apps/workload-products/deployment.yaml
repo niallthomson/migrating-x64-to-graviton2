@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: products
+  labels:
+    app: products
+spec:
+  minReadySeconds: 5
+  revisionHistoryLimit: 5
+  progressDeadlineSeconds: 60
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: products
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+      labels:
+        app: products
+    spec:
+      containers:
+      - name: products
+        image: ghcr.io/stefanprodan/podinfo:6.0.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9898
+          name: http
+          protocol: TCP
+        command:
+        - ./podinfo
+        - --port=9898
+        - --level=info
+        env:
+        - name: PODINFO_UI_COLOR
+          value: "#34577c"
+        - name: PODINFO_UI_MESSAGE
+          value: "I'm the products service"
+        livenessProbe:
+          exec:
+            command:
+            - podcli
+            - check
+            - http
+            - localhost:9898/healthz
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
+        readinessProbe:
+          exec:
+            command:
+            - podcli
+            - check
+            - http
+            - localhost:9898/readyz
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
+        resources:
+          limits:
+            cpu: 2000m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 64Mi
+      #tolerations:
+      #- key: "graviton2"
+      #  operator: "Equal"
+      #  value: "true"
+      #  effect: "NoSchedule"
+      #nodeSelector:
+      #  kubernetes.io/arch: arm64

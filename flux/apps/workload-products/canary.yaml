@@ -1,0 +1,70 @@
+apiVersion: flagger.app/v1beta1
+kind: Canary
+metadata:
+  name: products
+spec:
+  # deployment reference
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: products
+  # the maximum time in seconds for the canary deployment
+  # to make progress before it is rollback (default 600s)
+  progressDeadlineSeconds: 60
+  # HPA reference (optional)
+  autoscalerRef:
+    apiVersion: autoscaling/v2beta1
+    kind: HorizontalPodAutoscaler
+    name: products
+  service:
+    # container port
+    port: 9898
+    # Istio gateways (optional)
+    gateways:
+    - istio-system/public-gateway
+    # Istio virtual service host names (optional)
+    hosts:
+    - "products.example.com"
+  analysis:
+    # schedule interval (default 60s)
+    interval: 1m
+    # max number of failed metric checks before rollback
+    threshold: 5
+    maxWeight: 70
+    stepWeight: 10
+    # canary match condition
+    #match:
+    #- headers:
+    #    cookie:
+    #      regex: "^(.*?;)?(type=insider)(;.*)?$"
+    # Istio Prometheus checks
+    metrics:
+    - name: error-rate
+      templateRef:
+        name: error-rate
+        namespace: istio-system
+      thresholdRange:
+        max: 1
+      interval: 30s
+    - name: latency
+      templateRef:
+        name: latency
+        namespace: istio-system
+      thresholdRange:
+        max: 500
+      interval: 30s
+    # tests
+    webhooks:
+    - name: conformance-test
+      type: pre-rollout
+      timeout: 15s
+      url: http://flagger-loadtester.loadtest/
+      metadata:
+        type: bash
+        cmd: "curl -sd 'test' http://products-canary.workload-progressive:9898/token | grep token"
+    #- name: load-test
+    #  type: rollout
+    #  timeout: 1m
+    #  url: http://flagger-loadtester.loadtest/
+    #  metadata:
+    #    cmd: "hey -z 2m -q 10 -c 2 -H 'Cookie: type=insider' http://products.workload-progressive:9898/"
