@@ -19,12 +19,12 @@ spec:
   service:
     # container port
     port: 9898
-    # Istio gateways (optional)
-    gateways:
-    - istio-system/public-gateway
-    # Istio virtual service host names (optional)
-    hosts:
-    - "cart.example.com"
+    ## Istio gateways (optional)
+    #gateways:
+    #- istio-system/public-gateway
+    ## Istio virtual service host names (optional)
+    #hosts:
+    #- "cart.example.com"
   analysis:
     # schedule interval (default 60s)
     interval: 1m
@@ -67,4 +67,4 @@ spec:
       timeout: 1m
       url: http://flagger-loadtester.loadtest/
       metadata:
-        cmd: "hey -z 2m -q 10 -c 2 -H 'Cookie: type=insider' http://cart.workload-cart:9898/"
+        cmd: "hey -z 2m -q 10 -c 2 -H 'cart.example.com' http://cart.workload-cart:9898/"
