@@ -62,9 +62,9 @@ spec:
       metadata:
         type: bash
         cmd: "curl -sd 'test' http://cart-canary.workload-cart:9898/token | grep token"
-    #- name: load-test
-    #  type: rollout
-    #  timeout: 1m
-    #  url: http://flagger-loadtester.loadtest/
-    #  metadata:
-    #    cmd: "hey -z 2m -q 10 -c 2 -H 'Cookie: type=insider' http://cart.workload-cart:9898/"
+    - name: load-test
+      type: rollout
+      timeout: 1m
+      url: http://flagger-loadtester.loadtest/
+      metadata:
+        cmd: "hey -z 2m -q 10 -c 2 -H 'Cookie: type=insider' http://cart.workload-cart:9898/"
