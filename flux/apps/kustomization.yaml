@@ -6,7 +6,6 @@ resources:
   - grafana
   - loadtest
   - workload-1
-  #- workload-progressive
   - workload-cart
   - workload-payment
   - workload-products
