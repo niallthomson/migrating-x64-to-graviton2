@@ -23,8 +23,8 @@ spec:
     #gateways:
     #- istio-system/public-gateway
     ## Istio virtual service host names (optional)
-    #hosts:
-    #- "cart.example.com"
+    hosts:
+    - "cart.workload-cart"
   analysis:
     # schedule interval (default 60s)
     interval: 1m
