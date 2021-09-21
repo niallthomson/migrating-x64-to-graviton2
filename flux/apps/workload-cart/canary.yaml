@@ -24,7 +24,7 @@ spec:
     #- istio-system/public-gateway
     ## Istio virtual service host names (optional)
     hosts:
-    - "cart.workload-cart"
+    - "cart.example.com"
   analysis:
     # schedule interval (default 60s)
     interval: 1m
@@ -32,11 +32,6 @@ spec:
     threshold: 5
     maxWeight: 70
     stepWeight: 10
-    # canary match condition
-    #match:
-    #- headers:
-    #    cookie:
-    #      regex: "^(.*?;)?(type=insider)(;.*)?$"
     # Istio Prometheus checks
     metrics:
     - name: error-rate
@@ -61,10 +56,4 @@ spec:
       url: http://flagger-loadtester.loadtest/
       metadata:
         type: bash
-        cmd: "curl -sd 'test' http://cart-canary.workload-cart:9898/token | grep token"
-    - name: load-test
-      type: rollout
-      timeout: 1m
-      url: http://flagger-loadtester.loadtest/
-      metadata:
-        cmd: "hey -z 2m -q 10 -c 10 -H 'Host: cart.example.com' http://cart.workload-cart:9898/"
+        cmd: "curl -sd 'test' http://cart-canary.workloads:9898/token | grep token"

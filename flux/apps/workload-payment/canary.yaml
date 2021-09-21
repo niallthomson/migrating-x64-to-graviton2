@@ -32,11 +32,6 @@ spec:
     threshold: 5
     maxWeight: 70
     stepWeight: 10
-    # canary match condition
-    #match:
-    #- headers:
-    #    cookie:
-    #      regex: "^(.*?;)?(type=insider)(;.*)?$"
     # Istio Prometheus checks
     metrics:
     - name: error-rate
@@ -61,10 +56,4 @@ spec:
       url: http://flagger-loadtester.loadtest/
       metadata:
         type: bash
-        cmd: "curl -sd 'test' http://payment-canary.workload-payment:9898/token | grep token"
-    #- name: load-test
-    #  type: rollout
-    #  timeout: 1m
-    #  url: http://flagger-loadtester.loadtest/
-    #  metadata:
-    #    cmd: "hey -z 2m -q 10 -c 2 -H 'Cookie: type=insider' http://payment.workload-payment:9898/"
+        cmd: "curl -sd 'test' http://payment-canary.workloads:9898/token | grep token"
