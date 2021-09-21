@@ -30,7 +30,7 @@ spec:
     interval: 1m
     # max number of failed metric checks before rollback
     threshold: 5
-    maxWeight: 70
+    maxWeight: 50
     stepWeight: 10
     # Istio Prometheus checks
     metrics:
