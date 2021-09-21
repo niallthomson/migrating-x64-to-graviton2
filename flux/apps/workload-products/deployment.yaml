@@ -64,10 +64,3 @@ spec:
           requests:
             cpu: 100m
             memory: 64Mi
-      #tolerations:
-      #- key: "graviton2"
-      #  operator: "Equal"
-      #  value: "true"
-      #  effect: "NoSchedule"
-      #nodeSelector:
-      #  kubernetes.io/arch: arm64
